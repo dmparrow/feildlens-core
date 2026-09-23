@@ -1,0 +1,18 @@
+/* iOS standalone PWA safe-area handling. Keep operational UI clear of the status bar/notch. */
+
+@media (max-width: 760px) {
+  .workspace-view {
+    padding-top: calc(24px + env(safe-area-inset-top));
+  }
+
+  @supports selector(:has(*)) {
+    .label-check-view:has(.label-scan-panel) {
+      padding: env(safe-area-inset-top) 0 0;
+      background: var(--ink);
+    }
+
+    .label-check-view:has(.label-scan-panel) .label-camera-stage {
+      min-height: calc(100dvh - 70px - env(safe-area-inset-bottom) - env(safe-area-inset-top) - 92px);
+    }
+  }
+}

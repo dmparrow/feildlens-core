@@ -1,0 +1,173 @@
+/* Keep a phone in the mobile UI family when its wide landscape viewport crosses
+ * the normal 760px desktop breakpoint. Camera capture is untouched; only layout
+ * classification changes. Device hold is published by deviceOrientation.ts. */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  html[data-device-hold='landscape'] .app-shell {
+    display: block;
+    padding-bottom: calc(58px + env(safe-area-inset-bottom));
+  }
+
+  html[data-device-hold='landscape'] .sidebar {
+    display: none;
+  }
+
+  html[data-device-hold='landscape'] main {
+    width: 100%;
+    min-width: 0;
+  }
+
+  html[data-device-hold='landscape'] .mobile-nav {
+    position: fixed;
+    z-index: 20;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    height: calc(58px + env(safe-area-inset-bottom));
+    padding: 0 max(8px, env(safe-area-inset-right)) env(safe-area-inset-bottom) max(8px, env(safe-area-inset-left));
+    border-top: 1px solid #34413d;
+    background: var(--ink);
+  }
+
+  html[data-device-hold='landscape'] .mobile-nav button {
+    display: grid;
+    min-width: 0;
+    place-items: center;
+    align-content: center;
+    gap: 2px;
+    padding: 0 2px;
+    border: 0;
+    color: #8f9a96;
+    background: transparent;
+    font-size: 7px;
+    font-weight: 800;
+  }
+
+  html[data-device-hold='landscape'] .mobile-nav button.active {
+    color: white;
+  }
+
+  html[data-device-hold='landscape'] .mobile-nav button.active svg {
+    color: var(--yellow);
+  }
+
+  html[data-device-hold='landscape'] .workspace-view {
+    width: 100%;
+    max-width: none;
+    padding: 12px max(12px, env(safe-area-inset-right)) 28px max(12px, env(safe-area-inset-left));
+  }
+
+  /* During an EAN sweep, preserve the same camera-first mobile composition used
+   * in portrait. Rotating the phone must not promote the page to desktop UI. */
+  @supports selector(:has(*)) {
+    html[data-device-hold='landscape'] .carton-label-view:has(.carton-label-scan-panel) {
+      width: 100%;
+      max-width: none;
+      min-height: calc(100dvh - 58px - env(safe-area-inset-bottom));
+      padding: env(safe-area-inset-top) 0 0 !important;
+      gap: 0;
+      background: var(--ink);
+    }
+
+    html[data-device-hold='landscape'] .carton-label-view:has(.carton-label-scan-panel) .label-check-heading,
+    html[data-device-hold='landscape'] .carton-label-view:has(.carton-label-scan-panel) .label-stepper {
+      display: none;
+    }
+
+    html[data-device-hold='landscape'] .carton-label-view:has(.carton-label-scan-panel) .carton-label-scan-panel {
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  html[data-device-hold='landscape'] .carton-section-head {
+    min-height: 46px;
+    padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left));
+  }
+
+  html[data-device-hold='landscape'] .carton-section-head strong {
+    margin-top: 1px;
+    font-size: 11px;
+  }
+
+  html[data-device-hold='landscape'] .carton-section-head small {
+    margin-top: 1px;
+    font-size: 6.5px;
+  }
+
+  html[data-device-hold='landscape'] .carton-section-head .quiet-button {
+    min-height: 32px;
+    padding: 0 9px;
+    font-size: 8px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-stats > div {
+    padding: 5px 8px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-stats span {
+    font-size: 5.5px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-stats strong {
+    font-size: 10px;
+  }
+
+  html[data-device-hold='landscape'] .carton-label-camera {
+    min-height: max(180px, calc(100dvh - 196px - env(safe-area-inset-top) - env(safe-area-inset-bottom))) !important;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-instruction {
+    top: 7px;
+    max-width: min(470px, calc(100% - 24px));
+    padding: 6px 9px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-instruction strong {
+    font-size: 10px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-instruction small {
+    font-size: 6px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-instruction em {
+    margin-top: 3px;
+    font-size: 5.5px;
+  }
+
+  html[data-device-hold='landscape'] .carton-live-fields {
+    top: 58px;
+    right: max(8px, env(safe-area-inset-right));
+    width: min(30%, 210px);
+    max-height: 88px;
+  }
+
+  html[data-device-hold='landscape'] .carton-batch-ocr-status {
+    left: max(8px, env(safe-area-inset-left));
+    bottom: 8px;
+    width: min(210px, 32%);
+  }
+
+  html[data-device-hold='landscape'] .carton-section-actions {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px;
+    padding: 6px max(10px, env(safe-area-inset-right)) 6px max(10px, env(safe-area-inset-left));
+  }
+
+  html[data-device-hold='landscape'] .carton-section-actions > div {
+    min-width: 0;
+  }
+
+  html[data-device-hold='landscape'] .carton-section-actions .primary-button,
+  html[data-device-hold='landscape'] .carton-section-actions .quiet-button {
+    min-height: 36px;
+    padding: 0 10px;
+    font-size: 8px;
+  }
+}

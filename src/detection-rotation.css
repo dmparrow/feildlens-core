@@ -1,0 +1,64 @@
+/* Manual detection-only correction for phones with OS/browser rotation lock.
+ * The camera element, camera cover rectangle and app layout stay untouched.
+ * deviceOrientation.ts remaps each rendered EAN detection box into corrected
+ * normalized coordinates and publishes them through these custom properties. */
+html[data-detection-rotation='90'] .carton-video-coordinate-space .carton-batch-box,
+html[data-detection-rotation='270'] .carton-video-coordinate-space .carton-batch-box {
+  left: var(--fieldlens-box-left) !important;
+  top: var(--fieldlens-box-top) !important;
+  width: var(--fieldlens-box-width) !important;
+  height: var(--fieldlens-box-height) !important;
+}
+
+.fieldlens-detection-rotate {
+  position: absolute;
+  z-index: 12;
+  right: max(10px, env(safe-area-inset-right));
+  bottom: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 58px;
+  height: 36px;
+  padding: 0 9px;
+  border: 1px solid rgba(255,255,255,.28);
+  border-radius: 5px;
+  color: white;
+  background: rgba(17,29,25,.82);
+  box-shadow: 0 5px 16px rgba(0,0,0,.18);
+  backdrop-filter: blur(8px);
+  font: inherit;
+}
+
+.fieldlens-detection-rotate > span {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.fieldlens-detection-rotate > small {
+  color: #d5dfdb;
+  font-size: 7px;
+  font-weight: 900;
+  letter-spacing: .035em;
+}
+
+.fieldlens-detection-rotate[data-rotation]:not([data-rotation='0']) {
+  color: var(--ink);
+  border-color: var(--yellow);
+  background: var(--yellow);
+}
+
+.fieldlens-detection-rotate[data-rotation]:not([data-rotation='0']) > small {
+  color: #493e12;
+}
+
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 500px) {
+  .fieldlens-detection-rotate {
+    right: max(8px, env(safe-area-inset-right));
+    bottom: 8px;
+    height: 32px;
+    min-width: 54px;
+    padding: 0 8px;
+  }
+}

@@ -1,0 +1,161 @@
+/* Final responsive pass: keep operational screens dense, predictable and phone-first. */
+
+body { overflow-x: clip; }
+
+/* Camera restart / scan-mode transition ------------------------------------------------ */
+.camera-stage video { transition: opacity .18s ease, filter .18s ease, transform .18s ease; }
+.camera-stage.scanner-starting video { opacity: .48; filter: blur(5px) saturate(.65); transform: scale(1.015); }
+.camera-stage.scanner-starting::before {
+  content: '';
+  position: absolute;
+  z-index: 7;
+  inset: 0;
+  background: rgba(18, 27, 25, .36);
+  pointer-events: auto;
+}
+.camera-stage.scanner-starting::after {
+  content: 'Preparing scanner…';
+  position: absolute;
+  z-index: 8;
+  top: 50%;
+  left: 50%;
+  min-width: 190px;
+  padding: 13px 16px 13px 42px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 7px;
+  color: white;
+  background:
+    radial-gradient(circle at 21px 50%, var(--yellow) 0 5px, rgba(244,211,94,.18) 6px 10px, transparent 11px),
+    rgba(23,33,31,.92);
+  box-shadow: 0 12px 34px rgba(0,0,0,.28);
+  backdrop-filter: blur(10px);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .02em;
+  text-align: left;
+  animation: scanner-loading-pulse 1.15s ease-in-out infinite;
+}
+.camera-stage.scanner-starting .scan-frame,
+.camera-stage.scanner-starting .detection-point,
+.camera-stage.scanner-starting .camera-instruction { opacity: .18; }
+.camera-stage.scanner-starting .camera-tools { opacity: .5; pointer-events: none; }
+
+@keyframes scanner-loading-pulse {
+  0%, 100% { box-shadow: 0 12px 34px rgba(0,0,0,.28), 0 0 0 0 rgba(244,211,94,.14); }
+  50% { box-shadow: 0 12px 34px rgba(0,0,0,.28), 0 0 0 7px rgba(244,211,94,0); }
+}
+
+/* Restore Code Lab card containment lost in the earlier shell cleanup ------------------ */
+.code-card { min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 7px; background: white; }
+.code-card-heading { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 13px 14px 10px; }
+.code-card-heading strong { font-family: Georgia, serif; font-size: 17px; font-weight: 500; }
+.code-card-heading span { color: var(--green); font-size: 8px; font-weight: 900; white-space: nowrap; }
+.barcode-canvas { min-width: 0; }
+.barcode-canvas canvas { display: block; max-width: 100%; height: auto; }
+.code-card code { display: block; padding: 9px 14px 13px; overflow-wrap: anywhere; color: #5e6965; font-size: 10px; }
+
+/* Settings section structure ------------------------------------------------------------ */
+.settings-section { overflow: hidden; border-radius: 7px; }
+.settings-section > header { display: flex; align-items: center; gap: 11px; min-height: 64px; padding: 12px 15px; border-bottom: 1px solid var(--line); }
+.settings-section > header h2 { margin: 0; padding: 0; border: 0; font-family: Georgia, serif; font-size: 18px; font-weight: 500; }
+.settings-section > header p { margin: 3px 0 0; color: #77817d; font-size: 9px; }
+.settings-icon { display: grid; flex: 0 0 auto; width: 34px; height: 34px; place-items: center; border-radius: 5px; color: var(--ink); background: var(--yellow); }
+.settings-section .view-actions select { min-width: 0; }
+.switch-control { position: relative; width: 42px; height: 23px; padding: 0; border: 1px solid #aab2ad; border-radius: 999px; background: #d8dcd6; transition: background .16s ease, border-color .16s ease; }
+.switch-control span { position: absolute; top: 2px; left: 2px; width: 17px; height: 17px; border-radius: 50%; background: white; box-shadow: 0 1px 3px rgba(0,0,0,.22); transition: transform .16s ease; }
+.switch-control[aria-checked='true'] { border-color: var(--green); background: var(--green); }
+.switch-control[aria-checked='true'] span { transform: translateX(19px); }
+.device-facts > div { display: grid; grid-template-columns: 24px minmax(0,1fr) auto; align-items: center; gap: 10px; }
+.device-facts svg { width: 16px; color: var(--green); }
+
+/* EAN quick select --------------------------------------------------------------------- */
+.ean-setup-card .ean-custom-row { grid-template-columns: minmax(0, 1fr) auto; width: min(100%, 452px); }
+.ean-setup-card .ean-custom-row label { grid-column: 1 / -1; }
+.ean-setup-card .ean-custom-row .compact-input { width: 100%; min-width: 0; max-width: none; }
+.ean-setup-card .ean-custom-row .primary-button { white-space: nowrap; }
+
+@media (max-width: 760px) {
+  main { width: 100%; min-width: 0; }
+
+  /* Camera loader should feel like part of the camera rather than a page transition. */
+  .camera-stage.scanner-starting::after { top: 54%; min-width: 176px; padding: 12px 14px 12px 39px; font-size: 10px; }
+
+  /* Keep workspace pages on one consistent mobile gutter. */
+  .workspace-view { width: 100%; max-width: none; padding: 24px 14px 42px; }
+  .view-heading { gap: 12px; margin-bottom: 18px; }
+  .view-heading h1 { margin: 5px 0 6px; font-size: 34px; line-height: 1.02; }
+  .view-heading p { font-size: 11px; line-height: 1.4; }
+
+  /* EAN setup: no overlap between the selector and Start button. */
+  .label-check-view { gap: 11px; }
+  .ean-setup-card { padding: 20px 14px; }
+  .ean-setup-card h2 { font-size: 25px; }
+  .ean-setup-card .ean-custom-row { grid-template-columns: minmax(0,1fr) auto; gap: 8px; }
+  .ean-setup-card .ean-custom-row label { grid-column: 1 / -1; }
+  .ean-setup-card .ean-custom-row .compact-input { width: 100%; max-width: none; min-height: 42px; }
+  .ean-setup-card .ean-custom-row .primary-button { min-height: 42px; padding: 0 15px; }
+  .ean-ar-toggle { margin-top: 1px; }
+
+  /* Code lab: full viewport width, contained canvases, less vertical waste. */
+  .code-lab { width: 100%; max-width: none; }
+  .code-lab .view-heading { margin-bottom: 18px; }
+  .code-lab .view-heading .primary-button { min-height: 44px; }
+  .code-grid { width: 100%; gap: 12px; }
+  .code-card { width: 100%; }
+  .code-card-heading { padding: 11px 12px 8px; }
+  .code-card-heading strong { font-size: 16px; }
+  .barcode-canvas { width: 100%; min-height: 118px; padding: 10px; overflow: hidden; }
+  .barcode-canvas canvas { max-width: 100% !important; height: auto !important; }
+  .code-card code { padding: 7px 12px 11px; font-size: 9px; }
+
+  /* Settings: same gutter/rhythm as the other workspaces. */
+  .settings-view { width: 100%; max-width: none; }
+  .settings-view .view-heading { margin-bottom: 16px; }
+  .settings-view .view-heading > .quiet-button { min-height: 40px; width: auto; justify-self: start; }
+  .settings-layout { grid-template-columns: 1fr; gap: 12px; }
+  .settings-section:nth-child(2), .settings-device { grid-column: 1; grid-row: auto; }
+  .settings-section > header { min-height: 58px; padding: 10px 13px; }
+  .settings-section > header h2 { font-size: 17px; }
+  .settings-icon { width: 32px; height: 32px; }
+  .setting-row { grid-template-columns: minmax(0,1fr) auto; gap: 12px; min-height: 62px; padding: 11px 13px; }
+  .setting-row strong { font-size: 11px; }
+  .setting-row small { margin-top: 3px; font-size: 9px; }
+  .setting-row select,
+  .setting-row .compact-input,
+  .setting-range input { width: 130px; max-width: 38vw; min-height: 38px; }
+  .setting-row .quiet-button,
+  .setting-row a.quiet-button { min-height: 38px; padding: 0 11px; font-size: 10px; }
+  .setting-row > .view-actions { display: grid; grid-template-columns: minmax(0,1fr) auto; grid-column: 1 / -1; width: 100%; gap: 7px; }
+  .setting-row > .view-actions select { width: 100%; max-width: none; }
+  .device-facts { gap: 9px; padding: 13px; }
+  .device-facts div { padding-bottom: 9px; }
+
+  @supports selector(:has(*)) {
+    .setting-row:has(> select),
+    .setting-row:has(> .compact-input),
+    .setting-row.setting-range { grid-template-columns: minmax(0,1fr) 130px; }
+  }
+}
+
+@media (max-width: 390px) {
+  .workspace-view { padding-left: 12px; padding-right: 12px; }
+  .view-heading h1 { font-size: 32px; }
+
+  .ean-setup-card .ean-custom-row { grid-template-columns: 1fr; }
+  .ean-setup-card .ean-custom-row .primary-button { width: 100%; }
+
+  .setting-row { padding: 10px 12px; }
+  .setting-row select,
+  .setting-row .compact-input,
+  .setting-range input { width: 116px; max-width: 36vw; }
+
+  @supports selector(:has(*)) {
+    .setting-row:has(> select),
+    .setting-row:has(> .compact-input),
+    .setting-row.setting-range { grid-template-columns: 1fr; }
+    .setting-row:has(> select) > select,
+    .setting-row:has(> .compact-input) > .compact-input,
+    .setting-row.setting-range > input { width: 100%; max-width: none; }
+  }
+}
