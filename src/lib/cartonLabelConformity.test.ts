@@ -55,11 +55,11 @@ describe('summarizeCartonLabels', () => {
     }))
   })
 
-  it('does not count OCR as a valid carton label without PPIN or grower identity', () => {
-    const noIdentity = createCartonLabelScan(ocr({ grower: '' }, 'Variety HASS AVOCADO Count 48 Packer PK0405 Size 24'))
+  it('accepts strong carton-label structure when PPIN or grower identity is missed', () => {
+    const structuralIdentity = createCartonLabelScan(ocr({ grower: '' }, 'Variety HASS AVOCADO Count 48 Packer PK0405 Size 24'))
     const ppinIdentity = createCartonLabelScan(ocr({ grower: '', ppin: '123456' }, 'PPIN: 123456 Variety HASS AVOCADO Count 48 Packer PK0405 Size 24'))
 
-    expect(noIdentity.recognizedFields).toBe(0)
+    expect(structuralIdentity.recognizedFields).toBeGreaterThanOrEqual(4)
     expect(ppinIdentity.recognizedFields).toBeGreaterThanOrEqual(4)
   })
 
