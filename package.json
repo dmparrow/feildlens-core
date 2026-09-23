@@ -1,0 +1,39 @@
+{
+  "name": "fieldlens-core",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@zxing/browser": "^0.2.1",
+    "@zxing/library": "^0.23.0",
+    "bwip-js": "^4.11.4",
+    "dexie": "^4.4.5",
+    "dexie-react-hooks": "^4.4.0",
+    "lucide-react": "^1.33.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@types/bwip-js": "^3.2.3",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^6.0.4",
+    "fake-indexeddb": "^6.2.5",
+    "oxlint": "^1.75.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.2.0",
+    "vite-plugin-pwa": "^1.3.0",
+    "vitest": "^4.1.11"
+  },
+  "description": "Local-first barcode, EAN pallet and carton-label capture PWA core"
+}
