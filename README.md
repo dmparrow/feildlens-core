@@ -53,6 +53,10 @@ integration boundary
 
 The public core intentionally contains no deployment-specific configuration and no direct account integration. Production hosts can add authentication, remote persistence, sync/outbox processing, tenancy, and provider adapters without making capture dependent on network availability.
 
+## Arrowstack plan
+
+See [ARROWSTACK_PLAN.md](./ARROWSTACK_PLAN.md) for the production integration plan covering Keycloak authentication, offline sync/outbox, PostgreSQL, station/device registration, deployment, observability, and MCP integration.
+
 ## Origin
 
 Extracted from the private `dmparrow/net` FieldLens prototype. That repository remains unchanged and separate from this public core.
