@@ -1,0 +1,16 @@
+.ean-config-picker { display: grid; width: min(100%, 452px); gap: 8px; text-align: left; }
+.ean-config-picker > label { color: #66716d; font-size: 9px; font-weight: 900; text-transform: uppercase; }
+.ean-config-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.ean-config-row .compact-input { width: 100%; min-width: 0; max-width: none; }
+.ean-config-row .primary-button { white-space: nowrap; }
+.ean-config-editor { display: grid; grid-template-columns: minmax(0, 1fr) 110px auto; gap: 8px; padding: 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper); }
+.ean-config-editor .compact-input { width: 100%; min-width: 0; max-width: none; }
+.ean-config-editor .quiet-button { white-space: nowrap; }
+.ean-config-note { color: #6f7b76; font-size: 9px; line-height: 1.35; }
+
+@media (max-width: 520px) {
+  .ean-config-row { grid-template-columns: 1fr; }
+  .ean-config-row .primary-button { width: 100%; }
+  .ean-config-editor { grid-template-columns: minmax(0, 1fr) 92px; }
+  .ean-config-editor .quiet-button { grid-column: 1 / -1; width: 100%; }
+}
