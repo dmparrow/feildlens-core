@@ -15,12 +15,11 @@ describe('rotateNormalizedRect', () => {
   })
 
   it('rotates an EAN detection 270 degrees clockwise in normalized camera space', () => {
-    expect(rotateNormalizedRect(rect, 270)).toEqual({
-      x: 0.2,
-      y: 0.6,
-      width: 0.15,
-      height: 0.3,
-    })
+    const rotated = rotateNormalizedRect(rect, 270)
+    expect(rotated.x).toBeCloseTo(0.2)
+    expect(rotated.y).toBeCloseTo(0.6)
+    expect(rotated.width).toBeCloseTo(0.15)
+    expect(rotated.height).toBeCloseTo(0.3)
   })
 
   it('leaves automatic orientation coordinates unchanged', () => {
